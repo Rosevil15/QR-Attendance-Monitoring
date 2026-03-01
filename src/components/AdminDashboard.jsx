@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
+import jsPDF from 'jspdf'
+import 'jspdf-autotable'
 
 export default function AdminDashboard() {
   const [attendance, setAttendance] = useState([])
@@ -46,24 +48,73 @@ export default function AdminDashboard() {
     }
   }
 
-  const exportToCSV = () => {
-    const headers = ['Student ID', 'Date', 'Time', 'Status']
-    const rows = attendance.map(record => {
+  const exportToPDF = () => {
+    const doc = new jsPDF()
+    
+    // Add title
+    doc.setFontSize(20)
+    doc.setTextColor(30, 60, 114)
+    doc.text('Attendance Report', 14, 22)
+    
+    // Add date info
+    doc.setFontSize(11)
+    doc.setTextColor(100)
+    if (filterDate) {
+      doc.text(`Date: ${new Date(filterDate).toLocaleDateString()}`, 14, 32)
+    } else {
+      doc.text(`Generated: ${new Date().toLocaleDateString()}`, 14, 32)
+    }
+    doc.text(`Total Records: ${attendance.length}`, 14, 38)
+    
+    // Prepare table data
+    const tableData = attendance.map(record => {
       const { date, time } = formatDateTime(record.datetime)
-      return [record.student_id, date, time, record.status]
+      return [
+        record.student_id,
+        date,
+        time,
+        record.status
+      ]
     })
-
-    const csv = [
-      headers.join(','),
-      ...rows.map(row => row.join(','))
-    ].join('\n')
-
-    const blob = new Blob([csv], { type: 'text/csv' })
-    const url = window.URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `attendance_${filterDate || 'all'}.csv`
-    a.click()
+    
+    // Add table
+    doc.autoTable({
+      startY: 45,
+      head: [['Student ID', 'Date', 'Time', 'Status']],
+      body: tableData,
+      theme: 'striped',
+      headStyles: {
+        fillColor: [30, 60, 114],
+        textColor: 255,
+        fontStyle: 'bold',
+        fontSize: 11
+      },
+      bodyStyles: {
+        fontSize: 10
+      },
+      alternateRowStyles: {
+        fillColor: [245, 245, 245]
+      },
+      margin: { top: 45 }
+    })
+    
+    // Add footer
+    const pageCount = doc.internal.getNumberOfPages()
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i)
+      doc.setFontSize(9)
+      doc.setTextColor(150)
+      doc.text(
+        `Page ${i} of ${pageCount}`,
+        doc.internal.pageSize.width / 2,
+        doc.internal.pageSize.height - 10,
+        { align: 'center' }
+      )
+    }
+    
+    // Save the PDF
+    const fileName = `attendance_${filterDate || 'all'}_${new Date().getTime()}.pdf`
+    doc.save(fileName)
   }
 
   return (
@@ -122,21 +173,21 @@ export default function AdminDashboard() {
           Clear
         </button>
         <button
-          onClick={exportToCSV}
+          onClick={exportToPDF}
           disabled={attendance.length === 0}
           style={{
             padding: '10px 20px',
-            backgroundColor: attendance.length === 0 ? '#ccc' : '#4caf50',
+            backgroundColor: attendance.length === 0 ? '#ccc' : '#d32f2f',
             color: 'white',
             border: 'none',
             borderRadius: '12px',
             cursor: attendance.length === 0 ? 'not-allowed' : 'pointer',
             fontSize: '14px',
             fontWeight: '600',
-            boxShadow: attendance.length === 0 ? 'none' : '0 2px 10px rgba(76, 175, 80, 0.3)'
+            boxShadow: attendance.length === 0 ? 'none' : '0 2px 10px rgba(211, 47, 47, 0.3)'
           }}
         >
-          📥 Export CSV
+          📄 Export PDF
         </button>
       </div>
 
