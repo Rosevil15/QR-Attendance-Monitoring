@@ -42,7 +42,7 @@ function App() {
     fontSize: '14px',
     fontWeight: '600',
     backgroundColor: isActive ? 'white' : 'rgba(255, 255, 255, 0.2)',
-    color: isActive ? '#667eea' : 'white',
+    color: isActive ? '#1e3c72' : 'white',
     border: 'none',
     borderRadius: '25px',
     cursor: 'pointer',

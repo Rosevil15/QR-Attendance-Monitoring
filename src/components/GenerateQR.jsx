@@ -42,7 +42,7 @@ export default function GenerateQR() {
       margin: '0 auto'
     }}>
       <h2 style={{ 
-        color: '#667eea',
+        color: '#1e3c72',
         marginBottom: '20px',
         fontSize: 'clamp(1.3rem, 4vw, 1.8rem)'
       }}>
@@ -66,7 +66,7 @@ export default function GenerateQR() {
           outline: 'none',
           transition: 'border 0.3s ease'
         }}
-        onFocus={(e) => e.target.style.borderColor = '#667eea'}
+        onFocus={(e) => e.target.style.borderColor = '#1e3c72'}
         onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
       />
 
@@ -75,14 +75,14 @@ export default function GenerateQR() {
         disabled={!studentId.trim()}
         style={{
           padding: '12px 30px',
-          background: studentId.trim() ? '#667eea' : '#ccc',
+          background: studentId.trim() ? '#1e3c72' : '#ccc',
           color: 'white',
           border: 'none',
           borderRadius: '25px',
           fontSize: '16px',
           fontWeight: '600',
           cursor: studentId.trim() ? 'pointer' : 'not-allowed',
-          boxShadow: studentId.trim() ? '0 4px 15px rgba(102, 126, 234, 0.4)' : 'none',
+          boxShadow: studentId.trim() ? '0 4px 15px rgba(30, 60, 114, 0.4)' : 'none',
           marginBottom: '20px'
         }}
       >
@@ -107,7 +107,7 @@ export default function GenerateQR() {
               id="qr-code-svg"
               value={encryptedData}
               size={Math.min(256, window.innerWidth - 120)}
-              level="H"
+              level="M"
             />
           </div>
           <p style={{ 
@@ -130,14 +130,14 @@ export default function GenerateQR() {
             style={{
               marginTop: '15px',
               padding: '12px 30px',
-              background: '#667eea',
+              background: '#1e3c72',
               color: 'white',
               border: 'none',
               borderRadius: '25px',
               fontSize: '16px',
               fontWeight: '600',
               cursor: 'pointer',
-              boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)'
+              boxShadow: '0 4px 15px rgba(30, 60, 114, 0.4)'
             }}
           >
             💾 Download QR

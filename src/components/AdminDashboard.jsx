@@ -76,7 +76,7 @@ export default function AdminDashboard() {
       margin: '0 auto'
     }}>
       <h2 style={{ 
-        color: '#667eea',
+        color: '#1e3c72',
         marginBottom: '20px',
         fontSize: 'clamp(1.3rem, 4vw, 1.8rem)',
         textAlign: 'center'
@@ -166,7 +166,7 @@ export default function AdminDashboard() {
             borderRadius: '10px',
             textAlign: 'center',
             fontWeight: '600',
-            color: '#667eea'
+            color: '#1e3c72'
           }}>
             Total Records: {attendance.length}
           </div>
@@ -208,7 +208,7 @@ export default function AdminDashboard() {
                       <div style={{ 
                         fontSize: '18px',
                         fontWeight: '700',
-                        color: '#667eea'
+                        color: '#1e3c72'
                       }}>
                         {record.student_id}
                       </div>

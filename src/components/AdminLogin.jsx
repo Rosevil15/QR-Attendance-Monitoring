@@ -29,7 +29,7 @@ export default function AdminLogin({ onLogin }) {
     }}>
       <div style={{ fontSize: '60px', marginBottom: '20px' }}>🔐</div>
       <h2 style={{ 
-        color: '#667eea',
+        color: '#1e3c72',
         marginBottom: '10px',
         fontSize: 'clamp(1.3rem, 4vw, 1.8rem)'
       }}>
@@ -55,7 +55,7 @@ export default function AdminLogin({ onLogin }) {
             outline: 'none',
             transition: 'border 0.3s ease'
           }}
-          onFocus={(e) => e.target.style.borderColor = '#667eea'}
+          onFocus={(e) => e.target.style.borderColor = '#1e3c72'}
           onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
           autoFocus
         />
@@ -79,14 +79,14 @@ export default function AdminLogin({ onLogin }) {
           disabled={!password}
           style={{
             padding: '15px 40px',
-            background: password ? '#667eea' : '#ccc',
+            background: password ? '#1e3c72' : '#ccc',
             color: 'white',
             border: 'none',
             borderRadius: '25px',
             fontSize: '16px',
             fontWeight: '600',
             cursor: password ? 'pointer' : 'not-allowed',
-            boxShadow: password ? '0 4px 15px rgba(102, 126, 234, 0.4)' : 'none',
+            boxShadow: password ? '0 4px 15px rgba(30, 60, 114, 0.4)' : 'none',
             width: '100%'
           }}
         >
